@@ -1,14 +1,8 @@
 package how
 
 import (
-	"errors"
 	"os"
 	"path/filepath"
-)
-
-var (
-	ErrNotStruct    = errors.New("not a struct")
-	ErrInvalidValue = errors.New("invalid value")
 )
 
 // GetConfigPath returns a recommended config file location
@@ -38,4 +32,3 @@ func CreateConfigFile(path string, config interface{}) error {
 
 	return NewKeyValueEncoder(file).Encode(config)
 }
-

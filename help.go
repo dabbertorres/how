@@ -12,7 +12,7 @@ func PrintHelp(header string, config interface{}) error {
 	return PrintHelpTo(os.Stderr, header, config)
 }
 
-// PrintHelp prints header, followed by the help messages for each field in config
+// PrintHelpTo prints header, followed by the help messages for each field in config
 // If a field does not have a 'how-help' tag, one is generated for the field
 // A default value for each field is printed using the values of each field in config
 func PrintHelpTo(w io.Writer, header string, config interface{}) error {

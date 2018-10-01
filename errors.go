@@ -1,41 +1,50 @@
 package how
 
 import (
+	"errors"
 	"fmt"
 )
 
-type ErrMissingValue string
+type errMissingValue string
 
-func (e ErrMissingValue) Error() string {
+func (e errMissingValue) Error() string {
 	return fmt.Sprintf("missing value for '%s'", string(e))
 }
 
-// Returns true if err is a ErrMissingValue
+// IsMissingValueError returns true if err signals a missing value
 func IsMissingValueError(err error) bool {
-	_, ok := err.(ErrMissingValue)
+	_, ok := err.(errMissingValue)
 	return ok
 }
 
-type ErrNotFlag string
+type errNotFlag string
 
-func (e ErrNotFlag) Error() string {
+func (e errNotFlag) Error() string {
 	return fmt.Sprintf("'%s' is not a flag", string(e))
 }
 
-// Returns true if err is a ErrNotFlag
+// IsNotFlagError returns true if err signals a flag that isn't found in a config
 func IsNotFlagError(err error) bool {
-	_, ok := err.(ErrNotFlag)
+	_, ok := err.(errNotFlag)
 	return ok
 }
 
-type ErrUnsupportedType string
+type errUnsupportedType string
 
-func (e ErrUnsupportedType) Error() string {
+func (e errUnsupportedType) Error() string {
 	return fmt.Sprintf("type '%s' is not supported", string(e))
 }
 
-// Returns true if err is a ErrUnsupportedType
+// IsUnsupportedTypeError returns true if err signals that a struct field is an unsupported type
 func IsUnsupportedTypeError(err error) bool {
-	_, ok := err.(ErrUnsupportedType)
+	_, ok := err.(errUnsupportedType)
 	return ok
 }
+
+var (
+	// ErrNotStruct signals that a config passed to a Parse function is not a struct
+	ErrNotStruct = errors.New("not a struct")
+
+	// ErrInvalidValue signals that a config passed to a Parse function is nil or not a pointer/interface
+	ErrInvalidValue = errors.New("invalid value")
+)

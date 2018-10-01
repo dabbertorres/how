@@ -5,7 +5,7 @@ import (
 	"io"
 )
 
-// KeyValueEncoder encodes structs formatted as
+// NewKeyValueEncoder encodes structs formatted as
 // # comment
 // <key> = <value>
 // comments are placed above key-value pairs if a field has a non-empty "how-help" tag

@@ -1,4 +1,4 @@
-// how is simple package for parsing arguments
+// Package how is simple package for parsing arguments
 // config values are sourced from a config file, the environment, and os arguments (ordered in increasing priority)
 //
 // the struct field tags to use for customizing behavior are:
@@ -14,10 +14,10 @@ import (
 )
 
 var (
-	// ShowHelp is returned from any of the Parse* functions if "-h" or "--help" is one of the arguments
+	// ErrShowHelp is returned from any of the Parse* functions if "-h" or "--help" is one of the arguments
 	// If returned, no other arguments/settings are parsed!
 	// PrintHelp can then be used for convenience
-	ShowHelp = errors.New("show help")
+	ErrShowHelp = errors.New("show help")
 )
 
 // Parse parses the environment and os.Args into config
@@ -49,7 +49,7 @@ func ParseWithDecoder(config interface{}, decoder Decoder) error {
 func parse(config interface{}, args []string, decoder Decoder) error {
 	for _, a := range args {
 		if a == "-h" || a == "--help" {
-			return ShowHelp
+			return ErrShowHelp
 		}
 	}
 

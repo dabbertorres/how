@@ -37,7 +37,7 @@ func parseArgs(values reflectMap, args []string) (err error) {
 
 		if rv, ok := valuesMap[key]; ok {
 			if val == "" && rv.Kind() != reflect.Bool {
-				return ErrMissingValue(key)
+				return errMissingValue(key)
 			}
 
 			err := setValue(rv, val)
@@ -45,7 +45,7 @@ func parseArgs(values reflectMap, args []string) (err error) {
 				return err
 			}
 		} else {
-			return ErrNotFlag(key)
+			return errNotFlag(key)
 		}
 	}
 
@@ -70,7 +70,7 @@ func parseLongFlag(values reflectMap, args []string) (key, val string, valuesMap
 				val = args[1]
 				used++
 			} else {
-				err = ErrMissingValue(key)
+				err = errMissingValue(key)
 				return
 			}
 		} else {
@@ -87,7 +87,7 @@ func parseLongFlag(values reflectMap, args []string) (key, val string, valuesMap
 				val = args[2]
 				used += 2
 			} else {
-				err = ErrMissingValue(key)
+				err = errMissingValue(key)
 				return
 			}
 		} else {
@@ -113,12 +113,10 @@ func parseShortFlag(values reflectMap, args []string) (key, val string, valuesMa
 			if rv, ok := values.short[flag]; ok {
 				setValue(rv, "")
 			} else {
-				err = ErrNotFlag(flag)
+				err = errNotFlag(flag)
 				return
 			}
 		}
-
-		return
 	} else {
 		valuesMap = values.short
 

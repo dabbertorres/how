@@ -212,8 +212,8 @@ func Test_parseShortFlag(t *testing.T) {
 		t.Errorf("'%s' failed: expected cfg.XyzzyB to be true", args[3])
 	}
 
-	key, val, vm, used, err = parseShortFlag(values, args[4:])
+	key, val, _, used, err = parseShortFlag(values, args[4:])
 	if !IsNotFlagError(err) {
-		t.Errorf("'%s' failed: expected ErrNotFlag error, got: %v", args[4], err)
+		t.Errorf("'%s' failed: expected errNotFlag error, got: %v", args[4], err)
 	}
 }

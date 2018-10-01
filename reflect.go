@@ -51,7 +51,7 @@ func setValue(rv reflect.Value, val string) (err error) {
 		// TODO
 
 	default:
-		err = ErrUnsupportedType(rv.Type().Name())
+		err = errUnsupportedType(rv.Type().Name())
 	}
 
 	return
